@@ -1,10 +1,15 @@
 package com.jiawa.wiki.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 public class testController {
+
+
+    @Value("${test.hello:Test}")
+    private String testHello;
     /**
      * get，post，put，delete
      * /user/id=1
@@ -21,7 +26,7 @@ public class testController {
     @RequestMapping("/hello")
     public String hello(){
 
-        return "hello world";
+        return "hello world,"+testHello;
     }
 
     @RequestMapping("/hello/post")
