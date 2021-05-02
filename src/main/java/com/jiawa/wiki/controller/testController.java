@@ -20,6 +20,13 @@ public class testController {
     //    @RequestMapping(value = "/hello",method = RequestMethod.DELETE)   等同于@DeleteMapping("/hello")
     @RequestMapping("/hello")
     public String hello(){
+
         return "hello world";
+    }
+
+    @RequestMapping("/hello/post")
+    public String helloPost(String name){
+
+        return "hello world,post,"+name;
     }
 }
