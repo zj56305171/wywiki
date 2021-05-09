@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-public class testController {
+public class TestController {
 
 
     @Value("${test.hello:Test}")
