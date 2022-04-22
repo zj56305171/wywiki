@@ -1,6 +1,6 @@
 <template>
   <a-layout-footer style="text-align: center">
-    杰杰的电子书111
+    甲蛙电子书111
   </a-layout-footer>
 </template>
 
@@ -9,5 +9,8 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'the-footer',
+  props: {
+    msg: String,
+  },
 });
 </script>

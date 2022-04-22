@@ -6,17 +6,17 @@
   </a-layout>
 </template>
 
-
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TheHeader from '@/components/the-header.vue'; // @ is an alias to /src
 import TheFooter from '@/components/the-footer.vue'; // @ is an alias to /src
 
 export default defineComponent({
-  name: 'App',
+  name: 'app',
   components: {
     TheHeader,
-    TheFooter,
+    TheFooter
+
   },
 });
 </script>
@@ -39,3 +39,5 @@ export default defineComponent({
   background: #fff;
 }
 </style>
+
+
