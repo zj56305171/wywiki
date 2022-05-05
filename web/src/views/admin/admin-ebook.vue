@@ -36,6 +36,9 @@
         <template #cover="{ text: cover }">
           <img v-if="cover" :src="cover" alt="avatar" />
         </template>
+        <template v-slot:category="{ text, record }">
+          <span>{{ getCategoryName(record.category1Id) }} / {{ getCategoryName(record.category2Id) }}</span>
+        </template>
         <template v-slot:action="{ text, record }">
           <a-space size="small">
             <a-button type="primary" @click="edit(record)">
@@ -70,7 +73,7 @@
         <a-input v-model:value="ebook.name" />
       </a-form-item>
       <a-form-item label=“分类”>
-        <a-cascader v-model:value="categoryIds" :options="level1" :fieldNames="{ label: 'name', value: 'id', children: 'children' }" />
+        <a-cascader v-model:value="categoryIds" :options="level1" :field-names="{ label: 'name', value: 'id', children: 'children' }" />
       </a-form-item>
       <a-form-item label="描述">
         <a-input v-model:value="ebook.description" type="textarea" />
@@ -110,14 +113,18 @@ export default defineComponent({
         dataIndex: 'name'
       },
       {
-        title: '分类一',
-        key: 'category1ID',
-        dataIndex: 'category1ID'
+        title: '分类',
+        slots: { customRender: 'category' }
       },
-      {
-        title: '分类二',
-        dataIndex: 'category2ID'
-      },
+      // {
+      //   title: '分类一',
+      //   key: 'category1ID',
+      //   dataIndex: 'category1Id'
+      // },
+      // {
+      //   title: '分类二',
+      //   dataIndex: 'category2Id'
+      // },
       {
         title: '文档数',
         dataIndex: 'docCount'
@@ -206,7 +213,7 @@ export default defineComponent({
      */
     const edit = (record:any) => {
       modalVisible.value = true;
-      ebook.value = Tool.copy(record)
+      ebook.value = Tool.copy(record);
       categoryIds.value = [ebook.value.category1Id, ebook.value.category2Id]
       console.log("现在的是：",categoryIds.value)
     };
@@ -232,7 +239,7 @@ export default defineComponent({
     };
 
     const level1 = ref(); // 一级分类树，children属性就是二级分类
-
+    let categorys: any;
 
     /**
      * 查询所有分类
@@ -243,15 +250,28 @@ export default defineComponent({
         loading.value = false;
         const data = response.data;
         if(data.success){
-          const categorys = data.content;
-          console.log("原始数组：",categorys)
-          level1.value = []
-          level1.value = Tool.array2Tree(categorys,0)
-          console.log("树型结构：",level1.value)
+          categorys = data.content;
+          console.log("原始数组：",categorys);
+          level1.value = [];
+          level1.value = Tool.array2Tree(categorys,0);
+          console.log("树型结构：",level1.value);
         }else{
           message.error(data.message);
         }
       });
+    };
+
+    const getCategoryName = (cid: number) => {
+      console.log("cid：",cid)
+      let result = "";
+      categorys.forEach((item: any) => {
+        if (item.id === cid) {
+          // return item.name; // 注意，这里直接return不起作用
+          result = item.name;
+
+        }
+      });
+      return result;
     };
 
     onMounted(() => {
@@ -270,6 +290,7 @@ export default defineComponent({
       loading,
       handleTableChange,
       handleQuery,
+      getCategoryName,
 
       edit,
       add,
