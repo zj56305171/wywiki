@@ -269,13 +269,12 @@ export default defineComponent({
     };
 
     const getCategoryName = (cid: number) => {
-      console.log("cid：",cid)
+      // console.log("这次取到的cid：",cid)
       let result = "";
       categorys.forEach((item: any) => {
         if (item.id === cid) {
           // return item.name; // 注意，这里直接return不起作用
           result = item.name;
-
         }
       });
       return result;
