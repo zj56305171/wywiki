@@ -279,6 +279,7 @@ export default defineComponent({
     const handleDelete = (id:number) => {
       console.log('level1',level1 .value);
       console.log('id', id);
+      ids.length=0;
       getDeleteIds(level1.value,id);
       console.log('ids', ids);
       axios.delete("/doc/delete/" + ids.join(",")).then((response) => {
