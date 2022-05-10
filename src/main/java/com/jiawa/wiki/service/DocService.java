@@ -101,4 +101,11 @@ public class DocService {
         criteria.andIdIn(ids);
         docMapper.deleteByExample(docExample);
     }
+
+    public String findContent(long id){
+        //返回实体
+        Content content = contentMapper.selectByPrimaryKey(id);
+        //获取内容，需要判空，不然空的时候容易报错
+        return content.getContent();
+    }
 }
