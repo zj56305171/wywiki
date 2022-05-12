@@ -35,8 +35,10 @@ public class DocService {
     @Resource
     private SnowFlake snowFlake;
 
-    public List<DocQueryResp> all(){
+    public List<DocQueryResp> all(Long ebookId){
         DocExample docExample = new DocExample();
+        //这里不能写动态查询，有就查，没就不按ebookId来查，这样会查出全部文档
+        docExample.createCriteria().andEbookIdEqualTo(ebookId);
         docExample.setOrderByClause("sort asc");
         List<Doc> docList = docMapper.selectByExample(docExample);
         List<DocQueryResp> list = CopyUtil.copyList(docList, DocQueryResp.class);
