@@ -108,6 +108,10 @@ public class DocService {
         //返回实体
         Content content = contentMapper.selectByPrimaryKey(id);
         //获取内容，需要判空，不然空的时候容易报错
-        return content.getContent();
+        if(ObjectUtils.isEmpty(content)){
+            return "";
+        }else{
+            return content.getContent();
+        }
     }
 }
