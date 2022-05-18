@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue';
+import {computed, defineComponent, ref} from 'vue';
 import axios from 'axios';
 import {message} from "ant-design-vue";
 import store from "@/store";
@@ -49,10 +49,11 @@ declare let KEY: any;
 export default defineComponent({
   name: 'the-header',
   setup() {
-    // 登录后保存
-    const user = ref();
-    //初始给空对象，防止空指针
-    user.value = {};
+    // // 登录后保存
+    // const user = ref();
+    // //初始给空对象，防止空指针
+    // user.value = {};
+    const user = computed(() => store.state.user);
     // 用来登录
     const loginUser = ref({
       loginName: "test",
@@ -75,9 +76,9 @@ export default defineComponent({
         if (data.success){
           loginModalVisible.value = false;
           message.success("登录成功！")
-          user.value = data.content;
+          // user.value = data.content;
           // 使用vuex全局给user赋值
-          store.commit("setUser",user.value);
+          store.commit("setUser",data.content);
         }else{
           message.error(data.message);
         }
