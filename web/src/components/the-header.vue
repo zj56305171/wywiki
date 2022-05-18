@@ -75,7 +75,7 @@ export default defineComponent({
     // 用来登录
     const loginUser = ref({
       loginName: "test",
-      password: "test111"
+      password: "test"
     });
     const loginModalVisible = ref(false);
     const loginModalLoading = ref(false);
@@ -97,6 +97,7 @@ export default defineComponent({
           // user.value = data.content;
           // 使用vuex全局给user赋值
           store.commit("setUser",data.content);
+          loginUser.value.password = "test";
         }else{
           message.error(data.message);
         }
