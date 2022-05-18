@@ -31,13 +31,10 @@ public class UserLoginReq {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", loginName=").append(loginName);
-        sb.append(", password=").append(password);
-        sb.append("]");
+        final StringBuffer sb = new StringBuffer("UserLoginReq{");
+        sb.append("loginName='").append(loginName).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append('}');
         return sb.toString();
     }
 }
