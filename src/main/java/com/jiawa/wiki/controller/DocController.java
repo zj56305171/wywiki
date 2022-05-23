@@ -2,8 +2,8 @@ package com.jiawa.wiki.controller;
 
 import com.jiawa.wiki.req.DocQueryReq;
 import com.jiawa.wiki.req.DocSaveReq;
-import com.jiawa.wiki.resp.DocQueryResp;
 import com.jiawa.wiki.resp.CommonResp;
+import com.jiawa.wiki.resp.DocQueryResp;
 import com.jiawa.wiki.resp.PageResp;
 import com.jiawa.wiki.service.DocService;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +56,13 @@ public class DocController {
         CommonResp<String> resp = new CommonResp<>();
         String content = docService.findContent(id);
         resp.setContent(content);
+        return resp;
+    }
+
+    @GetMapping("/vote/{id}")
+    public CommonResp vote(@PathVariable Long id){
+        CommonResp resp = new CommonResp<>();
+        docService.vote(id);
         return resp;
     }
 }
