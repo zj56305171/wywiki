@@ -7,6 +7,7 @@ import com.jiawa.wiki.domain.Doc;
 import com.jiawa.wiki.domain.DocExample;
 import com.jiawa.wiki.mapper.ContentMapper;
 import com.jiawa.wiki.mapper.DocMapper;
+import com.jiawa.wiki.mapper.DocMapperCust;
 import com.jiawa.wiki.req.DocQueryReq;
 import com.jiawa.wiki.req.DocSaveReq;
 import com.jiawa.wiki.resp.DocQueryResp;
@@ -34,6 +35,9 @@ public class DocService {
 
     @Resource
     private SnowFlake snowFlake;
+
+    @Resource
+    private DocMapperCust docMapperCust;
 
     public List<DocQueryResp> all(Long ebookId){
         DocExample docExample = new DocExample();
@@ -80,6 +84,8 @@ public class DocService {
         if(ObjectUtils.isEmpty(req.getId())){
             //保存
             doc.setId(snowFlake.nextId());
+            doc.setViewCount(0);
+            doc.setVoteCount(0);
             docMapper.insert(doc);
             content.setId(doc.getId());
             contentMapper.insert(content);
@@ -107,6 +113,8 @@ public class DocService {
     public String findContent(long id){
         //返回实体
         Content content = contentMapper.selectByPrimaryKey(id);
+        //文档阅读数+1
+        docMapperCust.increaseViewCount(id);
         //获取内容，需要判空，不然空的时候容易报错
         if(ObjectUtils.isEmpty(content)){
             return "";
