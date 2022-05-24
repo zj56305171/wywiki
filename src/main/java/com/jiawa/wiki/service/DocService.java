@@ -50,6 +50,9 @@ public class DocService {
     @Resource
     public WebSocketServer webSocketServer;
 
+    @Resource
+    public WsService wsService;
+
     public List<DocQueryResp> all(Long ebookId){
         DocExample docExample = new DocExample();
         //这里不能写动态查询，有就查，没就不按ebookId来查，这样会查出全部文档
@@ -156,7 +159,8 @@ public class DocService {
 
         //推送消息
         Doc docDb = docMapper.selectByPrimaryKey(id);
-        webSocketServer.sendInfo("【"+docDb.getName()+"】被点赞！");
+//        webSocketServer.sendInfo("【"+docDb.getName()+"】被点赞！");
+        wsService.sendInfo("【"+docDb.getName()+"】被点赞！");
     }
 
     public void updateEbookInfo(){
