@@ -17,13 +17,14 @@ import javax.annotation.Resource;
     private static final Logger LOG = LoggerFactory.getLogger(DocJob.class);
 
     /**
-     * 自定义cron表达式跑批
-     * 只有等上一次执行完成，下一次才会在下一个时间点执行，错过就错过
-     * 介绍一个quartz定时任务框架
+     * 每30秒更新电子书信息
      */
     @Scheduled(cron = "5/30 * * * * ?")
     public void cron() {
-        docService.updateEookInfo();
+        LOG.info("更新电子书下的文档数据开始");
+        long start = System.currentTimeMillis();
+        docService.updateEbookInfo();
+        LOG.info("更新电子书下的文档数据结束，耗时：{}毫秒", System.currentTimeMillis() - start);
     }
 
  }

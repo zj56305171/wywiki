@@ -151,7 +151,7 @@ public class DocService {
         }
     }
 
-    public void updateEookInfo(){
+    public void updateEbookInfo(){
         docMapperCust.updateEookInfo();
     }
 }
