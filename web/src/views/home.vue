@@ -24,7 +24,7 @@
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
       <div class="welcome" v-show="isShowWelcome">
-        <p>欢迎使用甲蛙知识库</p>
+        <the-welcome></the-welcome>
       </div>
       <a-list v-show="!isShowWelcome" item-layout="vertical" size="large" :grid={gutter:10,column:3} :data-source="ebooks">
         <template #renderItem="{ item }">
@@ -63,6 +63,8 @@ import {defineComponent, onMounted, ref} from 'vue';
 import axios from 'axios';
 import {message} from 'ant-design-vue';
 import {Tool} from "@/util/tool";
+import TheWelcome from "@/components/the-welcome.vue";
+
 
 // const listData:any = [];
 // for (let i = 0; i < 23; i++) {
@@ -158,7 +160,10 @@ export default defineComponent({
       level1,
       isShowWelcome
     }
-  }
+  },
+  components: {
+    TheWelcome
+  },
 });
 </script>
 
